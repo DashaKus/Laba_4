@@ -163,7 +163,7 @@ public class GraphicsDisplay extends JPanel {
         for (int i=0; i<graphicsData.length; i++) {
             // Преобразовать значения (x,y) в точку на экране point
             Point2D.Double point = xyToPoint(graphicsData[i][0],
-                    graphicsData[i][1]);
+                    graphicsData[i][1]+5);
             if (i>0) {
                 // Не первая итерация цикла - вести линию в точку point
                 graphics.lineTo(point.getX(), point.getY());
@@ -215,7 +215,7 @@ public class GraphicsDisplay extends JPanel {
                 canvas.setColor(Color.BLACK);
 
             GeneralPath path = new GeneralPath();
-            Point2D.Double center = xyToPoint(graphicsData[i][0], graphicsData[i][1]);
+            Point2D.Double center = xyToPoint(graphicsData[i][0], graphicsData[i][1]+5);
             path.moveTo(center.x, center.y + 5);
             path.lineTo(center.x + 5, center.y);
             path.lineTo(center.x, center.y - 5);
@@ -267,11 +267,11 @@ public class GraphicsDisplay extends JPanel {
         if (minY<=0.0 && maxY>=0.0) {
             // Она должна быть видна, если верхняя граница показываемой области (maxX) >= 0.0,
             // а нижняя (minY) <= 0.0
-            canvas.draw(new Line2D.Double(xyToPoint(minX, 0), xyToPoint(maxX, 0)));
+            canvas.draw(new Line2D.Double(xyToPoint(minX, 5), xyToPoint(maxX, 5)));
             // Стрелка оси X
             GeneralPath arrow = new GeneralPath();
             // Установить начальную точку ломаной точно на правый конец оси X
-            Point2D.Double lineEnd = xyToPoint(maxX, 0);
+            Point2D.Double lineEnd = xyToPoint(maxX, 5);
             arrow.moveTo(lineEnd.getX(), lineEnd.getY());
             // Вести верхний "скат" стрелки в точку с относительными координатами (-20,-5)
             arrow.lineTo(arrow.getCurrentPoint().getX()-20, arrow.getCurrentPoint().getY()-5);
@@ -284,7 +284,7 @@ public class GraphicsDisplay extends JPanel {
             // Нарисовать подпись к оси X
             // Определить, сколько места понадобится для надписи "x"
             Rectangle2D bounds = axisFont.getStringBounds("x", context);
-            Point2D.Double labelPos = xyToPoint(maxX, 0);
+            Point2D.Double labelPos = xyToPoint(maxX, 5);
             // Вывести надпись в точке с вычисленными координатами
             canvas.drawString("x", (float)(labelPos.getX() - bounds.getWidth() - 10), (float)(labelPos.getY() + bounds.getY()));
         }
