@@ -176,6 +176,8 @@ public class GraphicsDisplay extends JPanel {
         }
         // Отобразить график
         canvas.draw(graphics);
+
+
     }
     private boolean markPoint(double y) {
         int n = (int) y;
@@ -237,6 +239,11 @@ public class GraphicsDisplay extends JPanel {
         canvas.setFont(axisFont);
         // Создать объект контекста отображения текста - для получения характеристик устройства (экрана)
         FontRenderContext context = canvas.getFontRenderContext();
+
+        Rectangle2D centerBounds = axisFont.getStringBounds("0", context);
+        Point2D.Double centerLabelPos = xyToPoint(0, 5);
+        canvas.drawString("0", (float)centerLabelPos.getX() + 10,
+                (float)(centerLabelPos.getY() - centerBounds.getY()));
         // Определить, должна ли быть видна ось Y на графике
         if (minX<=0.0 && maxX>=0.0) {
             // Она должна быть видна, если левая граница показываемой области (minX) <= 0.0,
@@ -287,6 +294,8 @@ public class GraphicsDisplay extends JPanel {
             Point2D.Double labelPos = xyToPoint(maxX, 5);
             // Вывести надпись в точке с вычисленными координатами
             canvas.drawString("x", (float)(labelPos.getX() - bounds.getWidth() - 10), (float)(labelPos.getY() + bounds.getY()));
+
+
         }
     }
     /* Метод-помощник, осуществляющий преобразование координат.
@@ -313,6 +322,10 @@ public class GraphicsDisplay extends JPanel {
         // Задать еѐ координаты как координаты существующей точки + заданные смещения
         dest.setLocation(src.getX() + deltaX, src.getY() + deltaY);
         return dest;
+
+
+
     }
+
 
 }
